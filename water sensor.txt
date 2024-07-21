@@ -1,0 +1,54 @@
+// Define the analog pin for the water level sensor
+const int sensorPin = A0;
+
+// Define the digital pins for the LEDs
+const int ledPin1 = 5;
+const int ledPin2 = 6;
+const int ledPin3 = 7;
+
+// Define the digital pins for the pull-down resistors
+const int resistorPin1 = 11;
+const int resistorPin2 = 12;
+const int resistorPin3 = 13;
+
+void setup() {
+  // Initialize serial communication
+  Serial.begin(9600);
+
+  // Initialize LED pins as outputs
+  pinMode(ledPin1, OUTPUT);
+  pinMode(ledPin2, OUTPUT);
+  pinMode(ledPin3, OUTPUT);
+
+  // Initialize pull-down resistor pins as outputs and set them to LOW
+  pinMode(resistorPin1, OUTPUT);
+  digitalWrite(resistorPin1, LOW);
+  pinMode(resistorPin2, OUTPUT);
+  digitalWrite(resistorPin2, LOW);
+  pinMode(resistorPin3, OUTPUT);
+  digitalWrite(resistorPin3, LOW);
+}
+
+void loop() {
+  // Read water level sensor value
+  int sensorValue = analogRead(sensorPin);
+
+  // Print sensor value to Serial Monitor
+  Serial.print("Water Level Sensor Value: ");
+  Serial.println(sensorValue);
+
+  // Map sensor value to LED brightness levels
+  int brightness1 = map(sensorValue, 0, 1023, 0, 255);
+  int brightness2 = map(sensorValue, 0, 1023, 0, 255);
+  int brightness3 = map(sensorValue, 0, 1023, 0, 255);
+
+  // Set LED brightness levels
+  analogWrite(ledPin1, brightness1);
+  analogWrite(ledPin2, brightness2);
+  analogWrite(ledPin3, brightness3);
+
+  // Delay for a short period
+  delay(100); // Adjust delay as needed
+}
+
+https://lastminuteengineers.com/water-level-sensor-arduino-tutorial/
